@@ -1,0 +1,26 @@
+services:
+  # 1. The Main Database
+  nexus-db:
+    image: postgres:16-alpine
+    container_name: nexus-flow-db
+    restart: always
+    environment: 
+      POSTGRES_USER: nexus_admin
+      POSTGRES_PASSWORD: nexus_password
+      POSTGRES_DB: nexus_flow
+    ports: 
+      - "5435:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # 2. The Real-time Pulse 
+  nexus-redis:
+    image: redis:alpine
+    container_name: nexus-flow-redis
+    restart: always
+    ports:
+      - '6380:6379'
+
+volumes:
+ postgres_data: 
+    
